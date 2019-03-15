@@ -139,14 +139,6 @@ AND F.facultyid = Q.facultyid
 AND S.studentid = R.studentid
 AND F.facultyname='Collins';
 
-c.
-
-SELECT count(R.studentid) AS numberstudent
-FROM registration R JOIN section E ON R.sectionno = E.sectionno
-JOIN qualified Q ON Q.courseid = E.courseid
-JOIN faculty F ON F.facultyid = Q.facultyid
-WHERE F.facultyname ='Collins';
-
 #versi join#
 SELECT studentname
 FROM student S JOIN registration R ON S.studentid = R.studentid
@@ -154,6 +146,14 @@ JOIN section E ON E.sectionno = R.sectionno
 JOIN qualified Q ON E.courseid = Q.courseid
 JOIN faculty F ON F.facultyid = Q.facultyid
 WHERE F.facultyname = 'Collins';
+
+c.
+
+SELECT count(R.studentid) AS numberstudent
+FROM registration R JOIN section E ON R.sectionno = E.sectionno
+JOIN qualified Q ON Q.courseid = E.courseid
+JOIN faculty F ON F.facultyid = Q.facultyid
+WHERE F.facultyname ='Collins';
 
 ##7.29
 # a.How many students were enrolled in section 2714 during semester I-2015?
