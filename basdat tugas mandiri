@@ -172,7 +172,12 @@ AND semester='I-2015' ;
 ##7.30
 Which students were not enrolled in any courses during semester I-2015?
 
-SELECT S.studentname
-FROM student S JOIN registration R ON S.studentid = R.studentid
-JOIN section E ON E.sectionno = R.sectionno
-WHERE E.semester != 'I-2015';
+Select DISTINCT StudentId, StudentName
+FROM Student S
+WHERE NOT EXISTS (
+ SELECT * FROM Registration R, Section E
+ WHERE
+ E.SectionNo = R.SectionNo AND
+ S.StudentID = R.StudentID AND
+ E.Semester = 'I-2015'
+);
