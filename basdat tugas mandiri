@@ -85,4 +85,94 @@ SELECT* FROM QUALIFIED;
 SELECT* FROM SECTION;
 SELECT* FROM REGISTRATION;
 
+##Display the course ID and course name for all courses with an ISM prefix.
 
+SELECT courseID, courseName FROM COURSE Order by courseID ASC;
+SELECT CourseID, CourseName FROM Course WHERE CourseID LIKE 'ISM%';
+
+##Display all courses for which Professor Berndt hasbeen qualified.
+SELECT C.courseid,F.facultyid ,facultyname FROM faculty F, qualified Q, course C 
+WHERE facultyname ='Berndt' AND F.facultyid = Q.facultyid
+AND C.courseid = Q.courseid;
+
+##Display the class roster, including student name, for all students enrolled in section 2714 of ISM 4212.
+SELECT studentname FROM student S, Section E,Registration R
+WHERE  E.courseid= 'ISM 4212' AND E.sectionno ='2714' 
+AND E.sectionno = R.sectionno
+AND S.studentid = R.studentid;
+
+##Which instructors are qualified to teach ISM 3113?
+
+SELECT C.courseid,F.facultyid ,facultyname FROM faculty F, qualified Q, course C 
+WHERE C.courseid= 'ISM 3113' AND F.facultyid = Q.facultyid
+AND C.courseid = Q.courseid;
+
+##Is any instructor qualified to teach ISM 3113 and not qualified to teach ISM 4930?
+SELECT distinct F.facultyid ,facultyname FROM faculty F, qualified Q, course C 
+WHERE Q.courseid= 'ISM 3113' AND Q.courseid != 'ISM 4930' AND F.facultyid = Q.facultyid
+AND C.courseid = Q.courseid;
+##
+#a. What are the names of the course(s) that student 
+Altvater took during the semester I-2015?
+
+#versi join#
+SELECT C.coursename
+FROM course C JOIN section E ON C.courseid = E.courseid
+JOIN registration R ON R.sectionno = E.sectionno
+JOIN student S ON S.studentid = R.studentid
+WHERE S.studentname = 'Altvater' AND E.semester = 'I-2015';
+#versi nonjoin#
+SELECT coursename FROM Course C, Student S, Section E, Registration R
+WHERE studentname ='Altvater' AND semester='I-2015'
+AND C.courseid = E.courseid
+AND R.sectionno= E.sectionno
+AND S.studentid=R.studentid;
+
+#b.List names of the students who have taken at least one course that Professor Collins is qualified to teach.
+
+#versi non join#
+SELECT studentname 
+FROM Student S,Qualified Q,Faculty F, section E,Registration R
+WHERE E.courseid = Q.courseid
+AND E.sectionno = R.sectionno
+AND F.facultyid = Q.facultyid
+AND S.studentid = R.studentid
+AND F.facultyname='Collins';
+
+c.
+
+SELECT count(R.studentid) AS numberstudent
+FROM registration R JOIN section E ON R.sectionno = E.sectionno
+JOIN qualified Q ON Q.courseid = E.courseid
+JOIN faculty F ON F.facultyid = Q.facultyid
+WHERE F.facultyname ='Collins';
+
+#versi join#
+SELECT studentname
+FROM student S JOIN registration R ON S.studentid = R.studentid
+JOIN section E ON E.sectionno = R.sectionno
+JOIN qualified Q ON E.courseid = Q.courseid
+JOIN faculty F ON F.facultyid = Q.facultyid
+WHERE F.facultyname = 'Collins';
+
+##7.29
+# a.How many students were enrolled in section 2714 during semester I-2015?
+
+SELECT COUNT(*) as StudentAll
+FROM Section
+WHERE sectionno='2714'
+AND semester ='I-2015' ;
+
+#b.How many students were enrolled in ISM 3113 during semester I-2015?
+SELECT COUNT(*) totalenroll
+FROM Section
+WHERE courseid='ISM 3113'
+AND semester='I-2015' ;
+
+##7.30
+Which students were not enrolled in any courses during semester I-2015?
+
+SELECT S.studentname
+FROM student S JOIN registration R ON S.studentid = R.studentid
+JOIN section E ON E.sectionno = R.sectionno
+WHERE E.semester != 'I-2015';
