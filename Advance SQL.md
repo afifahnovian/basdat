@@ -62,6 +62,9 @@ CREATE VIEW v4 AS
 SELECT SSN, CONCAT (FName,' ',LName) AS EName, DName
 FROM Employee,Department
 WHERE DNum = DNumber;
+
+#DROP
+DROP VIEW v1;
 ```
 
 Selain CREATE, VIEW juga berlaku operasi : **ALTER, DROP, DAN SELECTION**
