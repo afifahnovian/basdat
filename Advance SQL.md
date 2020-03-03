@@ -37,6 +37,27 @@ WHERE PK = FK
 ORDER BY PK;
 ```
 
+Contoh :
+```bash
+
+SELECT SSN, FName, LName, DName
+FROM Employee, Department
+WHERE DNum = DNumber
+ORDER BY DNum;
+
+##Menampilkan Employee yang pernah bekerja pada proyek yang dikelola oleh Department tempat Employee tersebut bekerja
+
+SELECT SSN, FName, LName,
+PName, P.DNum,
+D.DNumber, D.DName
+FROM Employee E, Project P, Department D, Works_On W
+WHERE E.SSN = W.ESSN AND
+W.PNum = P.PNumber AND P.DNum = D.DNumber AND E.DNum =
+P.DNum
+ORDER BY P.PName;
+
+```
+
 #### JOIN Table
 
 Melakukan selection dari beberapa tabel sekaligus, secara langsung menggabungkan tabel-tabel tersebut dengan syarat-syarat tertentu. Perintah Join memberikan hasil yang sama dengan contoh query sebelumnya yang menggunakan statement where untuk mencocokkan antar table.
@@ -45,6 +66,23 @@ Melakukan selection dari beberapa tabel sekaligus, secara langsung menggabungkan
 SELECT [aggregation] <column>
 FROM <table> JOIN <table> ON <condition>;
  ```
+ Contoh :
+ ```bash
+# Menampilkan Employee beserta nama Department tempat Employee bekerja
+
+SELECT SSN, FName, LName, DName
+FROM Employee JOIN Department ON DNum = DNumber
+ORDER BY DNum;
+
+# Menampilkan Employee yang pernah bekerja pada proyek yang dikelola oleh Department tempat Employee tersebut bekerja
+
+SELECT SSN, FName, LName, PName, P.DNum, D.DNumber, D.DName
+FROM Employee E JOIN Works_On W ON E.SSN = W.ESSN
+JOIN Project P ON W.PNum = P.PNumber AND E.DNum = P.DNum
+JOIN Department D ON P.DNum = D.DNumber
+ORDER BY P.PName;
+
+```
  
 #### VIEW
 
@@ -56,18 +94,25 @@ CREATE VIEW ViewName (Field1, Field1) AS SELECT Field_1,
 Field_1, …
 FROM TableName
 WHERE Condition;
+```
 
 #Contoh : 
+
+```bash
+#CREATE : membuat view
 CREATE VIEW v4 AS
 SELECT SSN, CONCAT (FName,' ',LName) AS EName, DName
 FROM Employee,Department
 WHERE DNum = DNumber;
 
-#DROP
-DROP VIEW v1;
+#SELECT : menampilkan VIEW
+SELECT * FROM v4
+
+#DROP : menghapus v4
+DROP VIEW v4;
 ```
 
-Selain CREATE, VIEW juga berlaku operasi : **ALTER, DROP, DAN SELECTION**
+Selain CREATE, VIEW juga berlaku operasi : **DROP, DAN SELECT**
 
 #### NESTED QUERY
 suatu query dimana didalamnya terdapat terdapat query lain yang menjadi kondisi.
@@ -78,6 +123,7 @@ SELECT PName
 FROM Project WHERE PNumber
 IN (SELECT PNum FROM Works_On);
 ```
+
 #### PROCEDURE
 Contoh
 ```bash 
@@ -98,9 +144,5 @@ Event yang dimaksud adalah  **INSERT**, **UPDATE** , **DELETE** database
 
 Syntax 
 ```bash
-CREATE TRIGGER <trigger name>
-FOR|AFTER|BEFORE <[INSERT][UPDATE][DELETE]>
-ON <table or view name>
-FOR EACH ROW
-<SQL Statement……. >;
+
 ```
