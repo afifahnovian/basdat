@@ -57,6 +57,14 @@ Field_1, …
 FROM TableName
 WHERE Condition;
 ```
+CREATE VIEW v4 AS
+SELECT SSN,
+CONCAT (FName,' ',LName) AS EName, DName
+FROM Employee,Department
+WHERE DNum = DNumber;
+```bash
+
+```
 Selain CREATE, VIEW juga berlaku operasi : **ALTER, DROP, DAN SELECTION**
 
 #### NESTED QUERY
