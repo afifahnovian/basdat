@@ -62,14 +62,35 @@ Selain CREATE, VIEW juga berlaku operasi : **ALTER, DROP, DAN SELECTION**
 #### NESTED QUERY
 suatu query dimana didalamnya terdapat terdapat query lain yang menjadi kondisi.
 
+Contoh
 ```bash
 SELECT PName
 FROM Project WHERE PNumber
 IN (SELECT PNum FROM Works_On);
 ```
+#### PROCEDURE
+Contoh
+```bash 
+CREATE OR REPLACE PROCEDURE bonus(VARCHAR, DEC) 
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+ UPDATE employee 
+ SET salary = salary + $2
+ WHERE ssn = $1
+ COMMIT;
+END;
+$$;
+```
+#### TRIGGER
+jenis khusus dari procedures yang bereaksi terhadap event / aksi tertentu pada database. 
+Event yang dimaksud adalah  **INSERT**, **UPDATE** , **DELETE** database 
 
-
-
-
-
-
+Syntax 
+```bash
+CREATE TRIGGER <trigger name>
+FOR|AFTER|BEFORE <[INSERT][UPDATE][DELETE]>
+ON <table or view name>
+FOR EACH ROW
+<SQL Statement……. >;
+```
