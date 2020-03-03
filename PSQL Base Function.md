@@ -1,19 +1,29 @@
-DATA DEFINITION LANGUANGE
-##Membuat Database
+##DATA DEFINITION LANGUANGE
+
+#### Membuat Database
+```bash
 CREATE DATABASE dbname;
+```
 
-### untuk melihat daftar database yg telah ada
+### Melihat daftar database yg telah ada
+```bash
 \l
+```
 
-## Untuk masuk ke database
+#### Untuk masuk ke database
+```bash
 \c dbname
+```
 
-##Untuk Drop Database
+#### Untuk Drop Database
+```bash
 DROP DATABASE [ IF EXISTS ] dbname;
 
 DROP DATABASE name;
+```
 
-##MEMBUAT TABEL
+#### MEMBUAT TABEL
+```bash
 CREATE TABLE table_name(
    column1 datatype,
    column2 datatype,
@@ -25,19 +35,25 @@ CREATE TABLE table_name(
 
 ## Melihat daftar table yang telah dibuat 
 \d
+```
 
-##MENGHAPUS TABEL
+#### MENGHAPUS TABEL
+```bash
 DROP TABLE table_name;
 
-##Jika Table berhubungan dengan table lain, makan cara untuk menghapus
+Jika Table berhubungan dengan table lain, maka cara untuk menghapus
 
 #Untuk menghapus paksa ada atau tidaknya relasi,tabel akan dihapus
+
 DROP TABLE table_name CASCADE; 
 
 #Untuk menghapus table namun jika ada relasi maka table tidak dapat dihapus, muncul peringatan adanya relasi 
-DROP TABLE table_name RESTRICT;
 
-##MEMODIFIKASI OBJEK PADA TABEL
+DROP TABLE table_name RESTRICT;
+```
+
+#### MEMODIFIKASI OBJEK PADA TABEL
+```bash
 #Menambahkan kolom
 ALTER TABLE <table-name> ADD COLUMN <column-name> <data-type>
 
@@ -64,7 +80,8 @@ ALTER TABLE <table-name> RENAME COLUMN <old-column-name> TO
 
 #Mengubah nama tabel
 ALTER TABLE <old-table-name> RENAME TO <new-table-name>;
-
+```
+```bash
 Contoh penggunaan ALTER
  id | name  | age | address   | salary
 ----+-------+-----+-----------+--------
@@ -88,36 +105,41 @@ Contoh penggunaan ALTER
   6 | Kim   |  22 | South-Hall  |  45000 |
   7 | James |  24 | Houston     |  10000 |
 (7 rows)
+```
 
+## DATA MANIPULATION LANGUAGE
 
-DATA MANIPULATION LANGUAGE
-##MEMILIH TABEL YANG DIMUNCULKAN
-
+#### MEMILIH TABEL YANG DIMUNCULKAN
+```bash
 #Untuk memlih table dengan kolom tertentu
 SELECT column1, column2, columnN FROM table_name;
 
 #memunculkan semua kolom pada table
 SELECT * FROM table_name;
+```
 
-##MEMASUKKAN DATA PADA TABEL
+#### MEMASUKKAN DATA PADA TABEL
 
+```bash
 #Cara 1 : memasukkan data dengan menyebutkan judul kolom dan isi data yg akan dimasukkan
 INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)
 VALUES (value1, value2, value3,...valueN);
 
 #Cara 2 : Langsung memasukkan data yang diurutkan sesuai urutan kolom
 INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
+```
 
-##MEMPERBAHARUI DATA PADA TABLE
-
+#### MEMPERBAHARUI DATA PADA TABLE
+```bash
+#UPDATE
 UPDATE table_name
 SET column1 = value1, column2 = value2...., columnN = valueN
 WHERE [condition];
 
-##DELETE 
-#Untuk menghapus baris tertentu
+#DELETE 
+##Untuk menghapus baris tertentu
 DELETE FROM table_name
 WHERE [condition];
 
-#Untuk menghapus semua yang ada di dalam table
+##Untuk menghapus semua yang ada di dalam table
 DELETE FROM table_name;
