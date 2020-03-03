@@ -25,3 +25,51 @@ Keterangan
 - user_name → nama pengguna yang ingin diberi atau dicabut hak akses
 - PUBLIC → hak akses diberi atau dicabut dari seluruh pengguna
 - WITH GRANT OPTION → mengizinkan pengguna untuk memberikan hak GRANT kepada pengguna lain
+
+## Advanced SQL
+
+#### Select Multiple Table
+
+```bash
+SELECT atribut1,atribur2,atribut3,atributn
+FROM Table1, Table_n
+WHERE PK = FK
+ORDER BY PK;
+```
+
+#### JOIN Table
+
+Melakukan selection dari beberapa tabel sekaligus, secara langsung menggabungkan tabel-tabel tersebut dengan syarat-syarat tertentu. Perintah Join memberikan hasil yang sama dengan contoh query sebelumnya yang menggunakan statement where untuk mencocokkan antar table.
+
+```bash
+SELECT [aggregation] <column>
+FROM <table> JOIN <table> ON <condition>;
+ ```
+ 
+#### VIEW
+
+Tabel bayangan yang dibangun dari satu atau beberapa tabel yang sudah ada. Secara fisik, VIEW tidak membuat penyimpanan data seperti 
+tabel, melainkan hanya menyimpan referensi/ pointer ke record pada tabel-tabel yang berkaitan. 
+
+```bash
+CREATE VIEW ViewName (Field1, Field1) AS SELECT Field_1,
+Field_1, …
+FROM TableName
+WHERE Condition;
+```
+Selain CREATE, VIEW juga berlaku operasi : **ALTER, DROP, DAN SELECTION**
+
+#### NESTED QUERY
+suatu query dimana didalamnya terdapat terdapat query lain yang menjadi kondisi.
+
+```bash
+SELECT PName
+FROM Project WHERE PNumber
+IN (SELECT PNum FROM Works_On);
+```
+
+
+
+
+
+
